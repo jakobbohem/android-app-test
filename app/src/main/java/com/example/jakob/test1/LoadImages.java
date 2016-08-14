@@ -73,7 +73,7 @@ public class LoadImages extends Fragment {
                 OnMainAction();
             }
         });
-        System.out.println("set action of button.");
+        System.out.println("set action to LoadImages View");
 
         return rootView;
     }

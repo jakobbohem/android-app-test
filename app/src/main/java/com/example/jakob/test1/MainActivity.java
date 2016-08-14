@@ -1,8 +1,6 @@
 package com.example.jakob.test1;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -143,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new LoadImages();
                 case 1:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return new PhoneBook();
                 case 2:
                     return PlaceholderFragment.newInstance(position + 1);
                 case 3:
