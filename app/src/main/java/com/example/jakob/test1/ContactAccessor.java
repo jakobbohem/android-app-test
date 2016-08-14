@@ -63,15 +63,6 @@ public class ContactAccessor extends Fragment
             mCProviderClient_ = cResolver_.acquireContentProviderClient(ContactsContract.Contacts.CONTENT_URI);
         }
 
-        View mainView = container.getRootView();
-        FloatingActionButton fab = (FloatingActionButton) mainView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnMainAction();
-            }
-        });
-        System.out.println("set action to Phonebook View");
         Button button = (Button) rootView.findViewById(R.id.startButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,16 +70,16 @@ public class ContactAccessor extends Fragment
                 OnMainAction();
             }
         });
-        System.out.println("set action to Contact accessor");
+
         return rootView;
     }
 
+
+
     public void OnMainAction() {
         TextView textView = (TextView) this.getView().findViewById(R.id.section_label);
-        textView.setText("initiate");
+        textView.setText("loading contacts...");
 
-        TextView phoneDisplay = (TextView) this.getView().findViewById(R.id.phone_display);
-        phoneDisplay.setText("phone #");
 
         contacts_ = fetchContactsCProviderClient();
         if (contacts_ == null) return;
@@ -142,7 +133,7 @@ public class ContactAccessor extends Fragment
                             case Phone.TYPE_MOBILE:
                             case Phone.TYPE_WORK:
                         }
-                        displayName += "#"+number;
+                        displayName += " #"+number;
                     }
                     phones.close();
 
@@ -163,7 +154,7 @@ public class ContactAccessor extends Fragment
                             case Phone.TYPE_MOBILE:
                             case Phone.TYPE_WORK:
                         }
-                        displayName += "#" +
+                        displayName += " #" +
                                 ""+number;
                     }
                     phones.close();

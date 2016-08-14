@@ -13,10 +13,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:nextFocusUp="@+id/autotext"
+        android:nextFocusLeft="@+id/autotext"
+        android:ems="10"
+        android:id="@+id/phone"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/dialButton" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dial"
+        android:text="Call"
         android:id="@+id/dialButton"
         android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
@@ -27,9 +45,9 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/phone_display"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/dialButton" />
+        android:id="@+id/phone_helper"
+        android:layout_below="@+id/phone"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

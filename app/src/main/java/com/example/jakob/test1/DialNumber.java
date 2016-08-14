@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -25,37 +27,22 @@ public class DialNumber extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
-    String number_;
+    private String number_;
 
     public DialNumber() {
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, 0); // some number
         this.setArguments(args);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_dial, container, false);
-        EditText textView = (EditText) rootView.findViewById(R.id.phone_display);
-        number_ = ((MainActivity)getActivity()).selected_phone_number_;
-        textView.setText(number_);
 
-        // set button action
-        View mainView = container.getRootView();
-        FloatingActionButton fab = (FloatingActionButton) mainView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                OnMainAction();
-            }
-        });
-        System.out.println("set action to LoadImages View");
-
-        Button button = (Button) rootView.findViewById(R.id.dialButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button dialButton = (Button) rootView.findViewById(R.id.dialButton);
+        dialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 OnMainAction();
@@ -83,6 +70,9 @@ public class DialNumber extends Fragment {
     }
 
     public void OnMainAction() {
+        EditText et = (EditText) getView().findViewById(R.id.phone);
+        number_ = et.getText().toString();
+
         Uri number = Uri.parse("tel:"+number_);
         Intent callIntent = new Intent(Intent.ACTION_CALL, number);
 
