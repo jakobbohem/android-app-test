@@ -13,20 +13,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/phone_display"
-        android:layout_below="@+id/section_label"
-        android:layout_width="match_parent"
+    <EditText
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="false"/>
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phone_display"
+        android:layout_alignParentTop="true"/>
 
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/contact_list"
         android:layout_below="@+id/phone_display"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:clickable="true"
-        android:focusable="false"
         />
 
     <Button

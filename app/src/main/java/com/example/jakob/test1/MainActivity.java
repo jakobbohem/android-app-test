@@ -1,5 +1,6 @@
 package com.example.jakob.test1;
 
+import android.app.Activity;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,9 +13,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private int currentItem = 0;
+    public String selected_phone_number_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupUI(findViewById(R.id.main_content));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -125,6 +131,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static void hideSoftKeyboard(Activity activity) {
+        if(activity == null) return;
+        if(activity.getCurrentFocus() == null) return;
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public void setupUI(View view) {
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(MainActivity.this);
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView);
+            }
+        }
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -145,10 +181,9 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return new PhoneBook();
                 case 2:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return new DialNumber();
                 case 3:
-                    return PlaceholderFragment.newInstance(position + 1);
-
+                    return new SendTextMessage();
             }
             throw new RuntimeException("no tab for position: "+position);
         }
