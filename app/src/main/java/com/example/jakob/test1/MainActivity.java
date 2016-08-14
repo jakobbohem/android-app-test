@@ -1,6 +1,7 @@
 package com.example.jakob.test1;
 
 import android.app.Activity;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private int currentItem = 0;
+    private ContactAccessor contactAccessor_;
     public String selected_phone_number_;
 
     @Override
@@ -60,15 +61,36 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//        System.out.println("set button action in MainActivity");
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // always save data for now
+                ContactAccessor ca = contactAccessor_;
+                if(ca != null) {
+                    EditText text = (EditText) ca.getView().findViewById(R.id.phone_display);
+                    if (text != null)
+                        selected_phone_number_ = text.getText().toString();
+                }
+                System.out.println("change!! current item is "+mViewPager.getCurrentItem());
+                if(mViewPager.getCurrentItem() == 1)
+                    System.out.println("got ContactAccessor!");
+//                selected_phone_number_ = mViewPager.getCurrentItem().instan
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+    }
+
+    public void onPageChanged() {
 
     }
 
@@ -85,10 +107,7 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        System.out.println("MAINACTIVITY onOptionsItemSelected  "+item+";; ");
         int id = item.getItemId();
-        currentItem = id;
-
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -96,42 +115,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            System.out.println("action set for placeholder #"+ARG_SECTION_NUMBER);
-            return rootView;
-        }
     }
 
     public static void hideSoftKeyboard(Activity activity) {
@@ -183,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new LoadImages();
                 case 1:
-                    return new ContactAccessor();
+                    contactAccessor_ = new ContactAccessor();
+                    return contactAccessor_;
                 case 2:
                     return new DialNumber();
                 case 3:

@@ -37,4 +37,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/goNext"
+        android:layout_alignTop="@+id/startButton"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

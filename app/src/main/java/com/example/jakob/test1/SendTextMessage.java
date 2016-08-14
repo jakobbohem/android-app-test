@@ -57,16 +57,6 @@ public class SendTextMessage extends Fragment {
         message_view_.setText(message);
 
         // set button action
-        View mainView = container.getRootView();
-        FloatingActionButton fab = (FloatingActionButton) mainView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                OnMainAction();
-            }
-        });
-        System.out.println("set action to LoadImages View");
 
         Button button = (Button) rootView.findViewById(R.id.sendButton);
         button.setOnClickListener(new View.OnClickListener() {

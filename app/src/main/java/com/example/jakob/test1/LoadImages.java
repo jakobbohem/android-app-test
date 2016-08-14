@@ -54,15 +54,6 @@ public class LoadImages extends Fragment {
         images_.add((ImageView) rootView.findViewById(R.id.imageView3));
 
         // set button action
-        View mainView = container.getRootView();
-        FloatingActionButton fab = (FloatingActionButton) mainView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnMainAction();
-            }
-        });
-        System.out.println("set action to LoadImages View");
 
         Button button = (Button) rootView.findViewById(R.id.startButton);
         button.setOnClickListener(new View.OnClickListener() {

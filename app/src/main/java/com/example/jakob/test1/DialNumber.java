@@ -42,26 +42,6 @@ public class DialNumber extends Fragment {
         number_ = ((MainActivity)getActivity()).selected_phone_number_;
         textView.setText(number_);
 
-        // set button action
-        View mainView = container.getRootView();
-        FloatingActionButton fab = (FloatingActionButton) mainView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                OnMainAction();
-            }
-        });
-        System.out.println("set action to LoadImages View");
-
-        Button button = (Button) rootView.findViewById(R.id.dialButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnMainAction();
-            }
-        });
-
         return rootView;
     }
 
