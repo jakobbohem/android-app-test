@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        System.out.println("set button action in MainActivity");
+//        System.out.println("set button action in MainActivity");
 
     }
 
@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         currentItem = id;
+        System.out.println("onOptionsItemSelected  "+item+";; "+ id);
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            System.out.println("action set for placeholder #"+ARG_SECTION_NUMBER);
             return rootView;
         }
     }

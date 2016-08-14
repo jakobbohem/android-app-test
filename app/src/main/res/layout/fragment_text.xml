@@ -13,29 +13,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/phone_display"
-        android:layout_below="@+id/section_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="false"/>
-
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/contact_list"
-        android:layout_below="@+id/phone_display"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:clickable="true"
-        android:focusable="false"
-        />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show"
-        android:id="@+id/startButton"
+        android:text="Dial"
+        android:id="@+id/dialButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp" />
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phone_display"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/dialButton" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/textMessage"
+        android:layout_below="@+id/phone_display" />
+
 
 </RelativeLayout>

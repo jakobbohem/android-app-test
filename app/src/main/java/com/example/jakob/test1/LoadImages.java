@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,18 +39,6 @@ public class LoadImages extends Fragment {
         images_ = new ArrayList<ImageView>();
     }
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-//    public static LoadImages newInstance(int sectionNumber) {
-//        LoadImages fragment = new LoadImages();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,7 +54,6 @@ public class LoadImages extends Fragment {
 
         // set button action
         View mainView = container.getRootView();
-
         FloatingActionButton fab = (FloatingActionButton) mainView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +62,14 @@ public class LoadImages extends Fragment {
             }
         });
         System.out.println("set action to LoadImages View");
+
+        Button button = (Button) rootView.findViewById(R.id.startButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnMainAction();
+            }
+        });
 
         return rootView;
     }
