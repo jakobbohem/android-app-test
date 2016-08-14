@@ -1,8 +1,7 @@
 package com.example.jakob.test1;
 
+import android.app.Activity;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -14,9 +13,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,14 +38,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private int currentItem = 0;
+    public String selected_phone_number_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupUI(findViewById(R.id.main_content));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -63,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        System.out.println("set button action in MainActivity");
+//        System.out.println("set button action in MainActivity");
 
     }
 
@@ -79,8 +84,11 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        System.out.println("MAINACTIVITY onOptionsItemSelected  "+item+";; ");
         int id = item.getItemId();
         currentItem = id;
+
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -121,7 +129,38 @@ public class MainActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            System.out.println("action set for placeholder #"+ARG_SECTION_NUMBER);
             return rootView;
+        }
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        if(activity == null) return;
+        if(activity.getCurrentFocus() == null) return;
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public void setupUI(View view) {
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(MainActivity.this);
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView);
+            }
         }
     }
 
@@ -138,17 +177,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
+            // Return a PlaceholderFragment
+
             switch (position) {
                 case 0:
                     return new LoadImages();
                 case 1:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return new ContactAccessor();
                 case 2:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return new DialNumber();
                 case 3:
-                    return PlaceholderFragment.newInstance(position + 1);
-
+                    return new SendTextMessage();
             }
             throw new RuntimeException("no tab for position: "+position);
         }

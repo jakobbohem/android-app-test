@@ -13,13 +13,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phone_display"
+        android:layout_alignParentTop="true"/>
+
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/contact_list"
+        android:layout_below="@+id/phone_display"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
+        android:text="Show"
+        android:id="@+id/startButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp" />
 
 </RelativeLayout>
