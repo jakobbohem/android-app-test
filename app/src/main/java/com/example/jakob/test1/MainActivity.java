@@ -1,6 +1,7 @@
 package com.example.jakob.test1;
 
 import android.app.Activity;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -38,14 +39,17 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private ContactAccessor contactAccessor_;
     public String selected_phone_number_;
+
+    private GetTextMessage textReceiver_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupUI(findViewById(R.id.main_content));
+
+        textReceiver_ = new GetTextMessage();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
@@ -65,16 +70,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 // always save data for now
-                ContactAccessor ca = contactAccessor_;
-                if(ca != null) {
+                ContactAccessor ca = (ContactAccessor) getSupportFragmentManager().findFragmentByTag(makeFragmentName(mViewPager.getId(), 1));
+                if(ca != null && ca.getView() != null) {
                     EditText text = (EditText) ca.getView().findViewById(R.id.phone_display);
                     if (text != null)
                         selected_phone_number_ = text.getText().toString();
                 }
                 System.out.println("change!! current item is "+mViewPager.getCurrentItem());
-                if(mViewPager.getCurrentItem() == 1)
-                    System.out.println("got ContactAccessor!");
-//                selected_phone_number_ = mViewPager.getCurrentItem().instan
+
             }
 
             @Override
@@ -90,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onPageChanged() {
-
+    private static String makeFragmentName(int viewPagerId, int index) {
+        return "android:switcher:" + viewPagerId + ":" + index;
     }
 
     @Override
@@ -166,8 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new LoadImages();
                 case 1:
-                    contactAccessor_ = new ContactAccessor();
-                    return contactAccessor_;
+                    return new ContactAccessor();
                 case 2:
                     return new DialNumber();
                 case 3:
@@ -190,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return "Phone book";
                 case 2:
-                    return "Enter #";
+                    return "Dial";
                 case 3:
                     return "Send text";
             }

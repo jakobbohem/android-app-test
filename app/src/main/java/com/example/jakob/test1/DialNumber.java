@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -40,7 +41,16 @@ public class DialNumber extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_dial, container, false);
         EditText textView = (EditText) rootView.findViewById(R.id.phone_display);
         number_ = ((MainActivity)getActivity()).selected_phone_number_;
+        System.out.println("got number "+number_);
         textView.setText(number_);
+
+        Button dialButton = (Button) rootView.findViewById(R.id.dialButton);
+        dialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnMainAction();
+            }
+        });
 
         return rootView;
     }

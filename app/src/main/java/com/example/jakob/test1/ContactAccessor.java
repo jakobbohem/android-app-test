@@ -70,21 +70,10 @@ public class ContactAccessor extends Fragment
                 OnMainAction();
             }
         });
-        Button nextButton = (Button) rootView.findViewById(R.id.goNext);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GoToDialDialogue();
-            }
-        });
 
         return rootView;
     }
 
-    public void GoToDialDialogue() {
-//        getActivity().mSectionsPagerAdapter.
-
-    }
 
 
     public void OnMainAction() {

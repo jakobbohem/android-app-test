@@ -57,7 +57,6 @@ public class SendTextMessage extends Fragment {
         message_view_.setText(message);
 
         // set button action
-
         Button button = (Button) rootView.findViewById(R.id.sendButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,11 +103,10 @@ public class SendTextMessage extends Fragment {
             // save data for app close state
             SharedPreferences pref;
             pref = getActivity().getSharedPreferences("info", Context.MODE_PRIVATE);
-//Using putXXX - with XXX is type data you want to write like: putString, putInt...   from      Editor object
+
             SharedPreferences.Editor editor = pref.edit();
             editor.putString("last_phone_number",phone);
             editor.putString("last_text_message",message);
-//finally, when you are done saving the values, call the commit() method.
             editor.commit();
 
         } catch (Exception e) {
