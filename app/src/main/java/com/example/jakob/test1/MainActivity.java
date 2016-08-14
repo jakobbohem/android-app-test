@@ -41,15 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     public String selected_phone_number_;
 
-    private GetTextMessage textReceiver_;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupUI(findViewById(R.id.main_content));
-
-        textReceiver_ = new GetTextMessage();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,7 +73,15 @@ public class MainActivity extends AppCompatActivity {
                         selected_phone_number_ = text.getText().toString();
                 }
                 System.out.println("change!! current item is "+mViewPager.getCurrentItem());
-
+                if(mViewPager.getCurrentItem() == 2)
+                {
+                    DialNumber dn = (DialNumber) getSupportFragmentManager().findFragmentByTag(makeFragmentName(mViewPager.getId(), 2));
+                    if(dn != null && dn.getView() != null) {
+                        EditText text = (EditText) dn.getView().findViewById(R.id.phone);
+                        if (text != null)
+                            text.setText(selected_phone_number_);
+                    }
+                }
             }
 
             @Override

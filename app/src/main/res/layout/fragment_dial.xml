@@ -27,7 +27,7 @@
         android:nextFocusUp="@+id/autotext"
         android:nextFocusLeft="@+id/autotext"
         android:ems="10"
-        android:id="@+id/phone_display"
+        android:id="@+id/phone"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/dialButton" />
 
@@ -39,6 +39,15 @@
         android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phone_helper"
+        android:layout_below="@+id/phone"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
