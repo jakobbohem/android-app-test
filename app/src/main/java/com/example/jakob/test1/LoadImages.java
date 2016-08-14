@@ -9,6 +9,7 @@ import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -70,8 +71,21 @@ public class LoadImages extends Fragment {
                 OnMainAction();
             }
         });
+        setHasOptionsMenu(true);
 
         return rootView;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        System.out.println("FRAGMENT onOptionsItemSelected  "+item+";; ");
+        int id = item.getItemId();
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void OnMainAction() {

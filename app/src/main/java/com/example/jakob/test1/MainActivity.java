@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -83,9 +84,11 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        System.out.println("MAINACTIVITY onOptionsItemSelected  "+item+";; ");
         int id = item.getItemId();
         currentItem = id;
-        System.out.println("onOptionsItemSelected  "+item+";; "+ id);
+
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -174,12 +177,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
+            // Return a PlaceholderFragment
+
             switch (position) {
                 case 0:
                     return new LoadImages();
                 case 1:
-                    return new PhoneBook();
+                    return new ContactAccessor();
                 case 2:
                     return new DialNumber();
                 case 3:
