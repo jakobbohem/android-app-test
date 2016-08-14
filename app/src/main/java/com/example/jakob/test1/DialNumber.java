@@ -39,7 +39,7 @@ public class DialNumber extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_dial, container, false);
         EditText textView = (EditText) rootView.findViewById(R.id.phone_display);
-        number_ = "0702945592";
+        number_ = ((MainActivity)getActivity()).selected_phone_number_;
         textView.setText(number_);
 
         // set button action

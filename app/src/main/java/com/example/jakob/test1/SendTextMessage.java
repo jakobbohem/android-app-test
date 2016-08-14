@@ -1,7 +1,9 @@
 package com.example.jakob.test1;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,7 +32,6 @@ public class SendTextMessage extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     EditText phone_number_view_;
     EditText message_view_;
-    String number_;
 
 
     public SendTextMessage() {
@@ -43,12 +44,17 @@ public class SendTextMessage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_text, container, false);
+
+        // check for store data
+        SharedPreferences shared = getActivity().getSharedPreferences("info", Context.MODE_PRIVATE);
+        String number = shared.getString("last_phone_number", "0702945592");
+        String message = shared.getString("last_text_message", "");
+
         phone_number_view_ = (EditText) rootView.findViewById(R.id.phone_display);
-        number_ = "0702945592";
-        phone_number_view_.setText(number_);
+        phone_number_view_.setText(number);
 
         message_view_ = (EditText) rootView.findViewById(R.id.textMessage);
-
+        message_view_.setText(message);
 
         // set button action
         View mainView = container.getRootView();
@@ -104,14 +110,24 @@ public class SendTextMessage extends Fragment {
             smsManager.sendTextMessage(phone, null, message, null, null);
             Toast.makeText(getActivity(), "SMS Sent!",
                     Toast.LENGTH_LONG).show();
+
+            // save data for app close state
+            SharedPreferences pref;
+            pref = getActivity().getSharedPreferences("info", Context.MODE_PRIVATE);
+//Using putXXX - with XXX is type data you want to write like: putString, putInt...   from      Editor object
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("last_phone_number",phone);
+            editor.putString("last_text_message",message);
+//finally, when you are done saving the values, call the commit() method.
+            editor.commit();
+
         } catch (Exception e) {
             Toast.makeText(getActivity(),
-                    "Sending text faild, please try again later!",
+                    "Sending text faild,",
                     Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
-//
 //        SmsManager smsManager = SmsManager.getDefault();
 //        smsManager.sendTextMessage(phone, null, message, null, null);
 
