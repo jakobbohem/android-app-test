@@ -47,13 +47,11 @@ public class LoadImages extends Fragment {
         TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         textView.setText(getString(R.string.message0, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-        // for not practical with ids?
         images_.add((ImageView) rootView.findViewById(R.id.imageView0));
         images_.add((ImageView) rootView.findViewById(R.id.imageView1));
         images_.add((ImageView) rootView.findViewById(R.id.imageView2));
         images_.add((ImageView) rootView.findViewById(R.id.imageView3));
 
-        // set button action
 
         Button button = (Button) rootView.findViewById(R.id.startButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -65,18 +63,6 @@ public class LoadImages extends Fragment {
         setHasOptionsMenu(true);
 
         return rootView;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        System.out.println("FRAGMENT onOptionsItemSelected  "+item+";; ");
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void OnMainAction() {

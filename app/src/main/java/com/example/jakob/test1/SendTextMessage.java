@@ -36,7 +36,7 @@ public class SendTextMessage extends Fragment {
 
     public SendTextMessage() {
         Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, 0); // some number
+        args.putInt(ARG_SECTION_NUMBER, 0);
         this.setArguments(args);
     }
 
@@ -56,7 +56,6 @@ public class SendTextMessage extends Fragment {
         message_view_ = (EditText) rootView.findViewById(R.id.textMessage);
         message_view_.setText(message);
 
-        // set button action
         Button button = (Button) rootView.findViewById(R.id.sendButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +114,6 @@ public class SendTextMessage extends Fragment {
                     Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
-
-//        SmsManager smsManager = SmsManager.getDefault();
-//        smsManager.sendTextMessage(phone, null, message, null, null);
 
     }
 

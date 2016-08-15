@@ -30,8 +30,6 @@ import java.util.ArrayList;
  */
 
 public class ContactAccessor extends Fragment
-//        implements
-//        View.OnClickListener
 {
     ArrayList<String>contacts_;
     int current_id_ = 0;
